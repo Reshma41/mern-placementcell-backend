@@ -19,24 +19,24 @@ const upload = multer({ storage: storage });
 
 router.post('/Form', upload.single('offerDocument'), async (req, res) => {
   try {
-    console.log('Received data:', req.body);
+    //console.log('Received data:', req.body);
 
-    const { studentid, register, placementId, attendedInterviews, areaOfInterest, receivedJobOffers } = req.body;
+    const { sid, register, placementId, attendedInterviews, areaOfInterest, receivedJobOffers } = req.body;
 
     if (register === 'Yes' && (!placementId || !attendedInterviews || !areaOfInterest || !receivedJobOffers)) {
       return res.status(400).json({ message: 'Required fields are missing.' });
     }
 
     const newQuestion = new Question({
-      studentid,
-      hyrd: 'default value', // Provide default or change this as per your application logic
+      sid:sid,
+      hyrd: register, // Provide default or change this as per your application logic
       Pid: placementId,
       Atin: attendedInterviews,
-      Aofin: 'default value', // Provide default or change this as per your application logic
-      offer: 'default value', // Provide default or change this as per your application logic
+      Aofin: areaOfInterest, // Provide default or change this as per your application logic
+      offer: receivedJobOffers, // Provide default or change this as per your application logic
       offeri: req.file ? req.file.filename : null,
     });
-
+     console.log("question : ",newQuestion)
     const savedQuestion = await newQuestion.save();
 
     res.json({
