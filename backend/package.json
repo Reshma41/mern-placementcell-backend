@@ -16,8 +16,8 @@
     "vercel": "^37.5.4"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
      "build": "echo 'No build step needed'"
   }
 }
